@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 // Singleton para iniciar o Firebase apenas uma vez
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
