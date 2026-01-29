@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// 1. Importe o Provider que criamos (verifique se a pasta contexts existe)
 import { AuthProvider } from "@/contexts/AuthContext";
 
 const geistSans = Geist({
@@ -15,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HubLead", // Aproveitei para arrumar o título
+  title: "HubLead",
   description: "Plataforma de Oportunidades",
 };
 
@@ -26,10 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* 2. Envolva toda a aplicação com o AuthProvider */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
           {children}
         </AuthProvider>
