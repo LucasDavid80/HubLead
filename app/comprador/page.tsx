@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation" // Adicione useSearchParams
 import { auth, db } from "@/lib/firebase"
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import { signOut } from "firebase/auth"
@@ -58,11 +58,17 @@ export default function CompradorDashboard() {
         }
     }
 
+    const searchParams = useSearchParams() // Hook para ler a URL
+    const prefillTitulo = searchParams.get('prefill') // Pega o texto da Home
+
+    // Efeito para preencher automático ao carregar
     useEffect(() => {
-        const user = auth.currentUser
-        if (!user) return router.push("/")
-        fetchDemandas(user.uid)
-    }, [router])
+        if (prefillTitulo) {
+            setTitulo(prefillTitulo)
+            // Opcional: Limpar a URL para ficar bonita
+            window.history.replaceState(null, '', '/comprador')
+        }
+    }, [prefillTitulo])
 
     const criarDemanda = async (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -160,7 +166,8 @@ export default function CompradorDashboard() {
                             </Alert>
                         ) : (
                             minhasDemandas.map((demanda) => (
-                                <Card key={demanda.id} className="hover:bg-slate-50 transition-colors">
+                                <Card key={demanda.id}
+                                    className="transition-all duration-300 hover:shadow-md hover:border-blue-300 border-slate-200 group cursor-default">
                                     <CardContent className="p-4 space-y-3">
                                         <div className="flex justify-between items-start">
                                             <h3 className="font-semibold text-slate-900 leading-tight">{demanda.titulo}</h3>

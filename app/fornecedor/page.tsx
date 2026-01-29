@@ -219,7 +219,9 @@ export default function FornecedorDashboard() {
                                     : <>Liberar Lead (-1 Crédito)</>
 
                                 return (
-                                    <Card key={demanda.id} className={`border-l-4 ${jaComprou ? 'border-l-green-500' : 'border-l-slate-300'}`}>
+                                    <Card key={demanda.id} className={`
+        border-l-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1
+        ${jaComprou ? 'border-l-green-500 border-green-200' : 'border-l-slate-300 hover:border-blue-400'}`}>
                                         <CardHeader>
                                             <CardTitle className="text-lg flex justify-between">
                                                 {demanda.titulo}
@@ -235,7 +237,7 @@ export default function FornecedorDashboard() {
                                         <CardFooter>
                                             {!jaComprou && (
                                                 <Button
-                                                    className="w-full"
+                                                    className="w-full shadow-blue-200 hover:shadow-blue-400 hover:shadow-lg transition-all"
                                                     onClick={() => liberarContato(demanda)}
                                                     disabled={!!buyingId}
                                                 >
